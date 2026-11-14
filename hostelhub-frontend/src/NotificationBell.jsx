@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from './api'
 
 function NotificationBell({ userRole, userEmail, onNavigate }) {
   const [notifications, setNotifications] = useState([])
@@ -41,7 +42,7 @@ function NotificationBell({ userRole, userEmail, onNavigate }) {
 
         if (userRole === 'STUDENT') {
           const response = await fetch(
-            'http://localhost:8080/api/leave-requests/my',
+            `${API_URL}/api/leave-requests/my`,
             {
               headers: {
                 Authorization: `Bearer ${token}`
@@ -54,12 +55,12 @@ function NotificationBell({ userRole, userEmail, onNavigate }) {
           newData.leaveRequests = await response.json()
         } else {
           const [complaintsResponse, leaveResponse] = await Promise.all([
-            fetch('http://localhost:8080/api/complaints', {
+            fetch(`${API_URL}/api/complaints`, {
               headers: {
                 Authorization: `Bearer ${token}`
               }
             }),
-            fetch('http://localhost:8080/api/leave-requests', {
+            fetch(`${API_URL}/api/leave-requests`, {
               headers: {
                 Authorization: `Bearer ${token}`
               }

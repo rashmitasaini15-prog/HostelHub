@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 
 function Fees({ onBack }) {
   const [fees, setFees] = useState([])
@@ -22,8 +23,8 @@ function Fees({ onBack }) {
         const email = payload.sub
 
         const url = role === 'STUDENT'
-          ? `http://localhost:8080/api/fees/student/${encodeURIComponent(email)}`
-          : 'http://localhost:8080/api/fees'
+          ? `${API_URL}/api/fees/student/${encodeURIComponent(email)}`
+          : `${API_URL}/api/fees`
 
         const response = await fetch(url, {
           headers: {
@@ -63,7 +64,7 @@ function Fees({ onBack }) {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        `http://localhost:8080/api/fees/${feeId}/pay`,
+        `${API_URL}/api/fees/${feeId}/pay`,
         {
           method: 'PUT',
           headers: {
@@ -192,3 +193,4 @@ function Fees({ onBack }) {
 }
 
 export default Fees
+

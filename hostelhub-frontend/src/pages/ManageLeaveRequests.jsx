@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 import './ManageLeaveRequests.css'
 
 function ManageLeaveRequests({ onBack }) {
@@ -13,7 +14,7 @@ function ManageLeaveRequests({ onBack }) {
   async function fetchRequests() {
     try {
       const response = await fetch(
-        'http://localhost:8080/api/leave-requests',
+        `${API_URL}/api/leave-requests`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -45,7 +46,7 @@ function ManageLeaveRequests({ onBack }) {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/leave-requests/${id}/status`,
+        `${API_URL}/api/leave-requests/${id}/status`,
         {
           method: 'PUT',
           headers: {

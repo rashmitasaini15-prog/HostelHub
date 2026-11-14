@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 
 function ManageStaff({ onBack }) {
   const [staff, setStaff] = useState([])
@@ -14,7 +15,7 @@ function ManageStaff({ onBack }) {
   async function fetchStaff() {
     try {
       const response = await fetch(
-        'http://localhost:8080/api/staff',
+        `${API_URL}/api/staff`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -60,7 +61,7 @@ function ManageStaff({ onBack }) {
       setMessage('')
 
       const response = await fetch(
-        `http://localhost:8080/api/staff/${staffId}/employee-id`,
+        `${API_URL}/api/staff/${staffId}/employee-id`,
         {
           method: 'PUT',
           headers: {

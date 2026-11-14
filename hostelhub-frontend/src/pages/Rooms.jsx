@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 
 function Rooms({ onBack }) {
   const [rooms, setRooms] = useState([])
@@ -24,7 +25,7 @@ function Rooms({ onBack }) {
   useEffect(() => {
     const token = localStorage.getItem('token')
 
-    fetch('http://localhost:8080/api/rooms', {
+    fetch(`${API_URL}/api/rooms`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -51,7 +52,7 @@ function Rooms({ onBack }) {
     const token = localStorage.getItem('token')
 
     try {
-      const response = await fetch('http://localhost:8080/api/rooms', {
+      const response = await fetch(`${API_URL}/api/rooms`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ function Rooms({ onBack }) {
     const token = localStorage.getItem('token')
 
     try {
-      const response = await fetch(`http://localhost:8080/api/rooms/${id}`, {
+      const response = await fetch(`${API_URL}/api/rooms/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -126,7 +127,7 @@ function Rooms({ onBack }) {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/rooms/${editingRoomId}`,
+        `${API_URL}/api/rooms/${editingRoomId}`,
         {
           method: 'PUT',
           headers: {

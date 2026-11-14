@@ -1,4 +1,4 @@
-
+import API_URL from '../api'
 function Register({ onBack }) {
 
   async function handleSubmit(event) {
@@ -21,7 +21,7 @@ function Register({ onBack }) {
 
     try {
       const response = await fetch(
-        'http://localhost:8080/api/students/register',
+        `${API_URL}/api/students/register`,
         {
           method: 'POST',
           headers: {

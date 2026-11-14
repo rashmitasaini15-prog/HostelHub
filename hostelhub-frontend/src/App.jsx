@@ -1,4 +1,5 @@
 
+import API_URL from './api'
 import { useEffect, useState } from 'react'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -72,11 +73,11 @@ function App() {
         const email = payload.sub
 
         const complaintUrl = userRole === 'STUDENT'
-          ? `http://localhost:8080/api/complaints/student/${encodeURIComponent(email)}`
-          : 'http://localhost:8080/api/complaints'
+          ? `${API_URL}/api/complaints/student/${encodeURIComponent(email)}`
+          : `${API_URL}/api/complaints`
 
         const [roomsResponse, complaintsResponse] = await Promise.all([
-          fetch('http://localhost:8080/api/rooms', {
+          fetch(`${API_URL}/api/rooms`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
           fetch(complaintUrl, {
@@ -88,7 +89,7 @@ function App() {
 
         if (userRole === 'STUDENT') {
           const feesResponse = await fetch(
-            `http://localhost:8080/api/fees/student/${encodeURIComponent(email)}`,
+            `${API_URL}/api/fees/student/${encodeURIComponent(email)}`,
             {
               headers: { Authorization: `Bearer ${token}` }
             }

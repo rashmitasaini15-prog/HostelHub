@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 
 function ManageStudents({ onBack }) {
   const [students, setStudents] = useState([])
@@ -15,7 +16,7 @@ function ManageStudents({ onBack }) {
       setError('')
 
       const response = await fetch(
-        'http://localhost:8080/api/students',
+        `${API_URL}/api/students`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -48,7 +49,7 @@ function ManageStudents({ onBack }) {
       setMessage('')
 
       const response = await fetch(
-        `http://localhost:8080/api/students/${studentId}/academic-year`,
+        `${API_URL}/api/students/${studentId}/academic-year`,
         {
           method: 'PUT',
           headers: {
@@ -97,7 +98,7 @@ function ManageStudents({ onBack }) {
       setMessage('')
 
       const response = await fetch(
-        `http://localhost:8080/api/students/${student.id}/${action}`,
+        `${API_URL}/api/students/${student.id}/${action}`,
         {
           method: 'PUT',
           headers: {
@@ -199,16 +200,16 @@ function ManageStudents({ onBack }) {
                   <p>Email: {student.email}</p>
                   <p>Contact: {student.contactNumber}</p>
                   <p>
-  Account Status:{' '}
-  <strong
-    style={{
-      color: student.active ? '#16a34a' : '#dc2626',
-      fontWeight: '700'
-    }}
-  >
-    {student.active ? 'Active' : 'Deactivated'}
-  </strong>
-</p>
+                    Account Status:{' '}
+                    <strong
+                      style={{
+                        color: student.active ? '#16a34a' : '#dc2626',
+                        fontWeight: '700'
+                      }}
+                    >
+                      {student.active ? 'Active' : 'Deactivated'}
+                    </strong>
+                  </p>
                 </div>
 
                 <div className="manage-student-actions">
@@ -229,13 +230,13 @@ function ManageStudents({ onBack }) {
                   </select>
 
                   <button
-  type="button"
-  className={`manage-student-status-button ${
-  student.active ? 'deactivate-button' : 'reactivate-button'
-}`}
-  onClick={() => updateAccountStatus(student)}
-  disabled={updatingId === student.id}
->
+                    type="button"
+                    className={`manage-student-status-button ${
+                      student.active ? 'deactivate-button' : 'reactivate-button'
+                    }`}
+                    onClick={() => updateAccountStatus(student)}
+                    disabled={updatingId === student.id}
+                  >
                     {updatingId === student.id
                       ? 'Updating...'
                       : student.active

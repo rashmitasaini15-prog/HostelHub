@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 
 function ApprovedStudentIds({ onBack }) {
   const [studentIds, setStudentIds] = useState([])
@@ -18,7 +19,7 @@ function ApprovedStudentIds({ onBack }) {
   async function fetchStudentIds() {
     try {
       const response = await fetch(
-        'http://localhost:8080/api/approved-student-ids',
+        `${API_URL}/api/approved-student-ids`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -69,7 +70,7 @@ function ApprovedStudentIds({ onBack }) {
 
     try {
       const response = await fetch(
-        'http://localhost:8080/api/approved-student-ids/details',
+        `${API_URL}/api/approved-student-ids/details`,
         {
           method: 'POST',
           headers: {
@@ -116,7 +117,7 @@ function ApprovedStudentIds({ onBack }) {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/approved-student-ids/${item.id}`,
+        `${API_URL}/api/approved-student-ids/${item.id}`,
         {
           method: 'DELETE',
           headers: {

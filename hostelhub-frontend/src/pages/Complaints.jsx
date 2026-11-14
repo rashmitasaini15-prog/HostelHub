@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import API_URL from '../api'
 
 function Complaints({ onBack }) {
   const [category, setCategory] = useState('Maintenance')
@@ -25,8 +26,8 @@ function Complaints({ onBack }) {
 
   function loadComplaints() {
     const url = role === 'STUDENT'
-      ? `http://localhost:8080/api/complaints/student/${encodeURIComponent(studentEmail)}`
-      : 'http://localhost:8080/api/complaints'
+      ? `${API_URL}/api/complaints/student/${encodeURIComponent(studentEmail)}`
+      : `${API_URL}/api/complaints`
 
     fetch(url, {
       headers: {
@@ -57,7 +58,7 @@ function Complaints({ onBack }) {
     setMessage('')
     setError('')
 
-    fetch('http://localhost:8080/api/complaints', {
+    fetch(`${API_URL}/api/complaints`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,30 +85,32 @@ function Complaints({ onBack }) {
   }
 
   function handleStatusChange(id, status) {
-  fetch(`http://localhost:8080/api/complaints/${id}/status`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ status })
-  })
-    .then(response => {
-  if (!response.ok) {
-    throw new Error(`Update failed: HTTP ${response.status}`)
-  }
-  return response.json()
-})
-    .then(updatedComplaint => {
-      setComplaints(current =>
-        current.map(complaint =>
-          complaint.id === id ? updatedComplaint : complaint
-        )
-      )
+    fetch(`${API_URL}/api/complaints/${id}/status`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ status })
     })
-.catch(error => {
-  alert(error.message)
-})}
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Update failed: HTTP ${response.status}`)
+        }
+        return response.json()
+      })
+      .then(updatedComplaint => {
+        setComplaints(current =>
+          current.map(complaint =>
+            complaint.id === id ? updatedComplaint : complaint
+          )
+        )
+      })
+      .catch(error => {
+        alert(error.message)
+      })
+  }
+
   return (
     <div className="complaints-page">
 
@@ -190,22 +193,22 @@ function Complaints({ onBack }) {
               )}
 
               {role === 'WARDEN' || role === 'ADMIN' ? (
-  <select
-    className="complaint-status-select"
-    value={complaint.status || 'Pending'}
-    onChange={event =>
-      handleStatusChange(complaint.id, event.target.value)
-    }
-  >
-    <option value="Pending">Pending</option>
-    <option value="In Progress">In Progress</option>
-    <option value="Resolved">Resolved</option>
-  </select>
-) : (
-  <span className="complaint-status">
-    {complaint.status || 'Pending'}
-  </span>
-)}
+                <select
+                  className="complaint-status-select"
+                  value={complaint.status || 'Pending'}
+                  onChange={event =>
+                    handleStatusChange(complaint.id, event.target.value)
+                  }
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
+                </select>
+              ) : (
+                <span className="complaint-status">
+                  {complaint.status || 'Pending'}
+                </span>
+              )}
             </div>
           ))}
         </div>

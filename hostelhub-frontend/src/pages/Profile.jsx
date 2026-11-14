@@ -1,3 +1,4 @@
+import API_URL from '../api'
 import { useEffect, useState } from 'react'
 
 function Profile({ onBack }) {
@@ -32,7 +33,7 @@ function Profile({ onBack }) {
         const token = localStorage.getItem('token')
 
         const response = await fetch(
-          'http://localhost:8080/api/students/profile',
+          `${API_URL}/api/students/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`
