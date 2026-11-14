@@ -1,0 +1,32 @@
+
+# macOS
+.DS_Store
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Backend - Java / Maven
+hostelhub-backend/target/
+hostelhub-backend/.idea/
+hostelhub-backend/*.iml
+hostelhub-backend/logs/
+hostelhub-backend/*.log
+
+# Local Spring configuration
+hostelhub-backend/src/main/resources/application-local.properties
+hostelhub-backend/src/main/resources/application-secret.properties
+
+# Frontend - Node / Vite
+hostelhub-frontend/node_modules/
+hostelhub-frontend/dist/
+hostelhub-frontend/.vite/
+hostelhub-frontend/.idea/
+hostelhub-frontend/*.log
+
+# IDE and editor
+.idea/
+.vscode/
+*.iml
+
